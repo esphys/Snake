@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable {
 
     public static int WIDTH = 30;
     public static int HEIGHT = 30;
-    public static int SCALE = 15;
+    public static int SCALE = 20;
 
     private Thread thread;
     private JFrame frame;
@@ -71,10 +71,15 @@ public class Game extends Canvas implements Runnable {
             return;
         }
 
+        screen.render();
+
+        for (int i=0; i < pixels.length; i++) {
+            pixels[i] = screen.pixels[i];
+        }
         Graphics g = bs.getDrawGraphics();
+
         // Dis where your graphics stuff go.
-        g.setColor(Color.BLACK);
-        g.fillRect(0,0, getWidth(), getHeight());
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
         bs.show();
 
