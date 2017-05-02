@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 /**
  * Created by Evan_2 on 2017-04-30.
@@ -18,6 +20,9 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private JFrame frame;
     private boolean running = false;
+
+    private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
     public Game() {
         Dimension size = new Dimension(WIDTH*SCALE, HEIGHT*SCALE);
@@ -76,7 +81,7 @@ public class Game extends Canvas implements Runnable {
         game.frame.setTitle("Snake");
         game.frame.add(game);
         game.frame.pack();
-        game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         game.frame.setLocationRelativeTo(null);
         game.frame.setVisible(true);
 
