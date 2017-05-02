@@ -1,5 +1,7 @@
 package game;
 
+import game.graphics.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -21,6 +23,8 @@ public class Game extends Canvas implements Runnable {
     private JFrame frame;
     private boolean running = false;
 
+    private Screen screen;
+
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 
@@ -28,6 +32,7 @@ public class Game extends Canvas implements Runnable {
         Dimension size = new Dimension(WIDTH*SCALE, HEIGHT*SCALE);
         setPreferredSize(size); // in Canvas
 
+        screen = new Screen(WIDTH, HEIGHT);
         frame = new JFrame();
     }
 
