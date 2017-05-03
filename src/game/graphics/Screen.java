@@ -8,8 +8,8 @@ public class Screen {
     private int width, height;
     public int[] pixels;
 
-    int xtime = 0;
-    int ytime = 0;
+    int xtime = 15;
+    int ytime = 15;
     int counter = 0;
 
     public Screen (int width, int height) {
@@ -29,13 +29,13 @@ public class Screen {
         if (counter %100 == 0){
             xtime++;
         }
-        if (counter %350 == 0){
+        if (counter %100 == 0){
             ytime++;
         }
         for(int y = 0; y < height; y++) {
-            if (ytime >= height) break;
+            if (ytime >= height || ytime < 0) break;
             for (int x = 0; x < width; x++) {
-                if (xtime >= width) break;
+                if (xtime >= width || xtime < 0) break;
                 pixels [xtime+ytime*width] = 0xff00ff;
             }
         }
