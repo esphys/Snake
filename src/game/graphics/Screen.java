@@ -26,10 +26,10 @@ public class Screen {
 
     public void render() {
         counter++;
-        if (counter %100 == 0){
+        if (counter %800 == 0){
             xtime++;
         }
-        if (counter %100 == 0){
+        if (counter %800 == 0){
             ytime++;
         }
         for(int y = 0; y < height; y++) {

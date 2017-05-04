@@ -18,6 +18,7 @@ public class Game extends Canvas implements Runnable {
     public static int WIDTH = 30;
     public static int HEIGHT = 30;
     public static int SCALE = 20;
+    public static String title = "Snake";
 
     private Thread thread;
     private JFrame frame;
@@ -53,11 +54,32 @@ public class Game extends Canvas implements Runnable {
 
     @Override
     public void run() {
+        long lastTime = System.nanoTime();
+        long timer = System.currentTimeMillis();
+        double ns = 1000000000.0/60.0;
+        double delta = 0.0;
+        int frames = 0;
+        int updates = 0;
         while (running) {
-            update();
+            long now = System.nanoTime();
+            delta += (now-lastTime) / ns;
+            lastTime = now;
+            while (delta >= 1) {
+                update();
+                updates++;
+                delta--;
+            }
             render();
+            frames++;
 
+            if (System.currentTimeMillis() - timer > 1000) {
+                timer += 1000;
+                frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps");
+                updates = 0;
+                frames = 0;
+            }
         }
+        stop();
     }
 
     public void update() {
@@ -88,7 +110,7 @@ public class Game extends Canvas implements Runnable {
     public static void main(String[] args) {
         Game game = new Game();
         game.frame.setResizable(false);
-        game.frame.setTitle("Snake");
+        game.frame.setTitle(Game.title);
         game.frame.add(game);
         game.frame.pack();
         game.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
