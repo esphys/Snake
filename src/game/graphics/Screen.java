@@ -25,6 +25,9 @@ public class Screen {
     }
 
     public void render() {
+
+
+
         counter++;
         if (counter %800 == 0){
             xtime++;

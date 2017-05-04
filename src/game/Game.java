@@ -24,7 +24,7 @@ public class Game extends Canvas implements Runnable {
     private JFrame frame;
     private boolean running = false;
 
-    private Screen screen;
+    private Snake snake;
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable {
         Dimension size = new Dimension(WIDTH*SCALE, HEIGHT*SCALE);
         setPreferredSize(size); // in Canvas
 
-        screen = new Screen(WIDTH, HEIGHT);
+        snake = new Snake(WIDTH, HEIGHT);
         frame = new JFrame();
     }
 
@@ -67,7 +67,7 @@ public class Game extends Canvas implements Runnable {
             while (delta >= 1) {
                 update();
                 updates++;
-                delta--;
+                delta = 0;
             }
             render();
             frames++;
@@ -84,6 +84,7 @@ public class Game extends Canvas implements Runnable {
 
     public void update() {
 
+        snake.update();
     }
 
     public void render() {
@@ -92,11 +93,11 @@ public class Game extends Canvas implements Runnable {
             createBufferStrategy(3);
             return;
         }
-        screen.clear();
-        screen.render();
+        snake.clear();
+        snake.render();
 
         for (int i=0; i < pixels.length; i++) {
-            pixels[i] = screen.pixels[i];
+            pixels[i] = snake.pixels[i];
         }
         Graphics g = bs.getDrawGraphics();
 
