@@ -7,7 +7,7 @@ public class Snake {
     private int width, height;
     private int updateTick = 0;
     private int[] position = {14, 14};
-    private int[] direction = {1, 0};
+    public int direction = 3;
 
     public int[] pixels;
 
@@ -30,16 +30,10 @@ public class Snake {
 
     public void update() {
 
-        if (updateTick >= 5) {
+        if (updateTick >= 2) {
 
-            //this.position[0]++; // move +-x
-            this.position[1]++;
-            if (this.position[0] < 0) this.position[0]+=width;
-            if (this.position[0] >= width) this.position[0]-=width;
-            if (this.position[1] < 0) this.position[1]+=height;
-            if (this.position[1] >= height) this.position[1]-=height;
-
-
+            nextPosition();
+            borderCollision();
 
             updateTick = 0;
         }else updateTick++;
@@ -49,5 +43,23 @@ public class Snake {
 
     public void render() {
         pixels[position[0] + width*position[1]] = 0xff00ff;
+    }
+
+    private void nextPosition() {
+        if (direction == 0) {
+            this.position[1]--;
+        }else if (direction == 1) {
+            this.position[0]++;
+        }else if (direction == 2) {
+            this.position[1]++;
+        }else if (direction == 3) {
+            this.position[0]--;
+        }
+    }
+    private void borderCollision() {
+        if (this.position[0] < 0) this.position[0]+=width;
+        if (this.position[0] >= width) this.position[0]-=width;
+        if (this.position[1] < 0) this.position[1]+=height;
+        if (this.position[1] >= height) this.position[1]-=height;
     }
 }

@@ -90,6 +90,7 @@ public class Game extends Canvas implements Runnable {
 
     public void update() {
         key.update();
+        snake.direction = key.getDirection();
         snake.update();
     }
 
@@ -111,7 +112,6 @@ public class Game extends Canvas implements Runnable {
         g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
         g.dispose();
         bs.show();
-
     }
 
     public static void main(String[] args) {
